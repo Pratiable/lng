@@ -20,16 +20,15 @@ class LottoNumberGenerator:
             self.start += 1
             return n
         elif self.start < self.maxnum and 0 < self.manualnum < 6: # 반자동
-            if len(self.mlist):
-                n = self.numberset[self.start]
-                self.start += 1
-                return n
-            else:
+            if not len(self.mlist):
                 self.mlist = list(map(int, input('위에 입력한 개수만큼 수동으로 사용할 번호 입력 (공백으로 구분): ').split()))
                 if len(set(self.mlist)) != self.manualnum or max(self.mlist) > 45 or min(self.mlist) < 1:
                     raise NumberError
                 self.numberset = [i for i in self.numberset if i not in self.mlist] # 수동으로 넣은 번호 삭제
                 return self.mlist
+            n = self.numberset[self.start]
+            self.start += 1
+            return n
         elif self.manualnum > 5 or self.manualnum < 0:
             raise NumberError
         else:
